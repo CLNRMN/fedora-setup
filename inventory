@@ -1,0 +1,49 @@
+all:
+  vars:
+    myhostname: t440s
+    repositories:
+    - name: docker-ce
+      description: docker-ce repository
+      baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
+      gpgkey: https://download.docker.com/linux/centos/gpg
+    - name: vscode
+      description: vscode repository
+      baseurl: https://packages.microsoft.com/yumrepos/vscode/
+      gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    - name: google-chrome
+      description: google-chrome repository
+      baseurl: https://dl.google.com/linux/chrome/rpm/stable/x86_64
+      gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+    - name: virtualbox
+      description:  virtualbox repository
+      baseurl: http://download.virtualbox.org/virtualbox/rpm/fedora/32/x86_64/
+      gpgkey: https://www.virtualbox.org/download/oracle_vbox.asc
+    
+    packages:
+      - docker-ce
+      - docker-ce-cli
+      - docker-ce-selinux
+      - docker-compose
+      - vim-enhanced
+      - vim-syntastic-yaml
+      - vim-syntastic-json
+      - vim-syntastic-ansible
+      - sysstat
+      - git
+      - tilix
+      - code
+      - gnome-tweaks
+      - pavucontrol
+      - powertop
+      - snapd
+      - seahorse
+      - vagrant
+      - virt-manager
+      - libvirt-client
+      - google-chrome-stable
+      - jq
+      - pwgen
+      - liferea
+      - bat
+      - xsel #cli clipboard utility
+      - htop

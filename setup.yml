@@ -1,0 +1,54 @@
+---
+- hosts: localhost
+  tasks:
+    - name: set hostname
+      hostname:
+        name: "{{ myhostname }}"
+
+    - name: Add Yum Repositories
+      yum_repository:
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        baseurl: "{{ item.baseurl }}"
+        gpgcheck: yes
+        gpgkey: "{{ item.gpgkey }}"
+      become: true
+      with_items: "{{ repositories }}"
+
+    - name: Install Packages
+      yum:
+        name: "{{ packages }}"
+      become: true
+
+    - name: gnome-settings
+      command: "{{ item }}"
+      with_items:
+          - gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+          - gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
+          - gsettings set org.gnome.desktop.search-providers disabled "['org.gnome.Boxes.desktop', 'org.gnome.Characters.desktop', 'org.gnome.clocks.desktop', 'org.gnome.Photos.desktop', 'org.gnome.Software.desktop']"
+          - gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+          - gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-automatic false
+          - gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature "uint32 3988"
+          - gsettings set org.gnome.desktop.peripherals.touchpad speed "0.66176470588235303"
+          - gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+          - gsettings set org.gnome.desktop.interface show-battery-percentage true
+          - gsettings set org.gnome.desktop.interface clock-show-weekday true
+          - gsettings set org.gnome.shell enabled-extensions "['background-logo@fedorahosted.org', 'places-menu@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com']"
+          - gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'
+          - gsettings set org.gnome.nautilus.list-view default-zoom-level 'small'
+          - gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
+          - gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Super>Tab', '<Alt>Tab']"
+          - gsettings set org.gnome.desktop.wm.keybindings switch-applications "[]"
+          - gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Shift><Super>Tab', '<Shift><Alt>Tab']"
+          - gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "[]"
+          - gsettings set org.gnome.desktop.background primary-color '#000000' # Set Background Color to Black
+          - gsettings set org.gnome.desktop.background picture-options 'none' # Disable Image Background
+          - gsettings set org.gnome.desktop.screensaver lock-delay "uint32 180"
+          - gsettings set org.gnome.desktop.notifications show-in-lock-screen false
+          - gsettings set org.gnome.desktop.calendar show-weekdate true
+          - gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'org.gnome.Calendar.desktop', 'org.gnome.Nautilus.desktop']"
+          - gsettings set org.gnome.gedit.preferences.editor highlight-current-line false
+
+
+
+

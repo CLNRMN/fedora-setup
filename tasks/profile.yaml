@@ -1,0 +1,12 @@
+---
+  - name: Create all required folders
+    file:
+      path: "{{ item.path }}"
+      state: directory
+    with_items: "{{ folders }}"
+  
+  - name: Clone all required git repos
+    git:
+      repo: "{{ item.repo }}"
+      dest: "{{ item.dest }}"
+    with_items: "{{ git_repos }}"

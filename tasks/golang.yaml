@@ -1,0 +1,19 @@
+---
+- name: Install golang
+  block:
+  - name: check if go is already installed
+    stat:
+      path: /usr/local/go/bin/go
+    register: stat_golang
+  - name: Download golang
+    get_url:
+      url: https://golang.org/dl/go{{ go_version }}.linux-amd64.tar.gz
+      dest: ~/Downloads
+    when: stat_golang.stat.exists == false
+  - name: Unzip go tgz to /usr/local/go
+    unarchive:
+      dest: /usr/local/
+      src: ~/Downloads/go{{ go_version }}.linux-amd64.tar.gz
+    become: true
+    when: stat_golang.stat.exists == false
+  when: go_version is defined

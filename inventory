@@ -1,11 +1,8 @@
 all:
   vars:
     myhostname: t440s
+    # Yum Repositories
     repositories:
-    - name: docker-ce
-      description: docker-ce repository
-      baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
-      gpgkey: https://download.docker.com/linux/centos/gpg
     - name: vscode
       description: vscode repository
       baseurl: https://packages.microsoft.com/yumrepos/vscode/
@@ -18,12 +15,8 @@ all:
       description:  virtualbox repository
       baseurl: http://download.virtualbox.org/virtualbox/rpm/fedora/32/x86_64/
       gpgkey: https://www.virtualbox.org/download/oracle_vbox.asc
-    
+    # Yum Packages
     packages:
-      - docker-ce
-      - docker-ce-cli
-      - docker-ce-selinux
-      - docker-compose
       - vim-enhanced
       - vim-syntastic-yaml
       - vim-syntastic-json
@@ -47,3 +40,13 @@ all:
       - bat
       - xsel #cli clipboard utility
       - htop
+      - fzf
+    go_version: 1.14.4
+    folders:
+    - path: ~/git/public/
+    - path: ~/git/clnrmn/
+    git_repos:
+    - repo: https://github.com/VundleVim/Vundle.vim.git
+      dest: ~/git/public/Vundle.vim
+    - repo: git://github.com/ohmybash/oh-my-bash.git
+      dest: ~/git/public/oh-my-bash

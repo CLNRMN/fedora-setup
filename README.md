@@ -9,9 +9,6 @@
  sudo yum install ansible -y
  ```
  
- ## Configure
- tbd
- 
  ## Setup
  
  ```bash
@@ -22,3 +19,5 @@
  - Fedora 32
  - Fedora 31
  - Fedora 30
+
+

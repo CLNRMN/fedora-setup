@@ -17,7 +17,5 @@
  
  ## Supported Version
  - Fedora 32
- - Fedora 31
- - Fedora 30
 
 

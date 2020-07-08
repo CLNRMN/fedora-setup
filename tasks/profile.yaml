@@ -10,7 +10,34 @@
       repo: "{{ item.repo }}"
       dest: "{{ item.dest }}"
     with_items: "{{ git_repos }}"
-
+  
   - name: Configure VS Code
     command: code --install-extension {{ item.extension }}
     with_items: "{{ vscode_extension }}"
+  #
+  # Dotfiles
+  #
+  - name: Check if git directory "Dotfiles" is cloned
+    stat:
+      path: ~/git/clnrmn/dotfiles/
+    register: dotfiles
+
+  - name: Sync Dotfiles
+    synchronize:
+      src: "~/git/clnrmn/dotfiles/"
+      dest: "~"
+      checksum: yes
+      rsync_opts:
+      - "--exclude=.git"
+    when: dotfiles.stat.exists
+  
+  #
+  # VIM Setup
+  #
+  - name: Check if .vimrc exists
+    stat:
+      path: "~/.vimrc"
+    register: vimrc
+  - name: Install vim Plugins
+    command: vim +PluginInstall +qall
+    when: vimrc.stat.exists

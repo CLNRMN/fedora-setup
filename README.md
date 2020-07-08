@@ -14,6 +14,11 @@
  ```bash
  ansible-playbook -i inventory setup.yaml -K
  ```
+ ### Git Config
+ ```bash
+ git config --global user.email mail@mail.mail
+ git config --global user.name CLNRMN
+ ```
  
  ## Supported Version
  - Fedora 32

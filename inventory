@@ -50,3 +50,6 @@ all:
       dest: ~/git/public/Vundle.vim
     - repo: git://github.com/ohmybash/oh-my-bash.git
       dest: ~/git/public/oh-my-bash
+    vscode_extension:
+    - extension: redhat.vscode-yaml
+    - extension: golang.Go

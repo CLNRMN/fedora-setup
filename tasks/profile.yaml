@@ -10,3 +10,7 @@
       repo: "{{ item.repo }}"
       dest: "{{ item.dest }}"
     with_items: "{{ git_repos }}"
+
+  - name: Configure VS Code
+    command: code --install-extension {{ item.extension }}
+    with_items: "{{ vscode_extension }}"

@@ -41,3 +41,36 @@
   - name: Install vim Plugins
     command: vim +PluginInstall +qall
     when: vimrc.stat.exists
+
+  #
+  # Tilix Setup
+  #
+  - name: Check if tilix is installed
+    stat:
+      path: /usr/bin/tilix
+    register: tilix
+  - name: Check if links is already created
+    stat:
+      path: /usr/bin/gnome-terminal
+    register: gnometerminal
+  - name: Create a copy of /usr/bin/gnome-terminal
+    copy:
+      src: /usr/bin/gnome-terminal
+      dest: /usr/bin/gnome-terminal-bak
+    become: true
+    when: not gnometerminal.stat.islnk and tilix.stat.exists
+  - name: Remove /usr/bin/gnome-terminal
+    file:
+      path: /usr/bin/gnome-terminal
+      state: absent
+    become: true
+    when: not gnometerminal.stat.islnk and tilix.stat.exists
+  - name: Create a symbolic link
+    file:
+      src:  /usr/bin/tilix
+      dest: /usr/bin/gnome-terminal
+      state: link
+    become: true
+    when: tilix.stat.exists and not gnometerminal.stat.islnk
+    
+  

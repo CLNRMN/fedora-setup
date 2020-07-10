@@ -1,28 +1,28 @@
 ---
-  - name: Create all required folders
+  - name: "Profile: Create all required folders"
     file:
       path: "{{ item.path }}"
       state: directory
     with_items: "{{ folders }}"
   
-  - name: Clone all required git repos
+  - name: "Profile: Clone all required git repos"
     git:
       repo: "{{ item.repo }}"
       dest: "{{ item.dest }}"
     with_items: "{{ git_repos }}"
   
-  - name: Configure VS Code
+  - name: "Profile: Configure VS Code"
     command: code --install-extension {{ item.extension }}
     with_items: "{{ vscode_extension }}"
   #
   # Dotfiles
   #
-  - name: Check if git directory "Dotfiles" is cloned
+  - name: "Profile: Check if git directory Dotfiles is cloned"
     stat:
       path: ~/git/clnrmn/dotfiles/
     register: dotfiles
 
-  - name: Sync Dotfiles
+  - name: "Profile: Sync Dotfiles"
     synchronize:
       src: "~/git/clnrmn/dotfiles/"
       dest: "~"
@@ -30,42 +30,42 @@
       rsync_opts:
       - "--exclude=.git"
     when: dotfiles.stat.exists
-  
+
   #
   # VIM Setup
   #
-  - name: Check if .vimrc exists
+  - name: "Profile: Check if .vimrc exists"
     stat:
       path: "~/.vimrc"
     register: vimrc
-  - name: Install vim Plugins
+  - name: "Profile: Install vim Plugins"
     command: vim +PluginInstall +qall
     when: vimrc.stat.exists
 
   #
   # Tilix Setup
   #
-  - name: Check if tilix is installed
+  - name: "Profile: Check if tilix is installed"
     stat:
       path: /usr/bin/tilix
     register: tilix
-  - name: Check if links is already created
+  - name: "Profile: Check if links is already created"
     stat:
       path: /usr/bin/gnome-terminal
     register: gnometerminal
-  - name: Create a copy of /usr/bin/gnome-terminal
+  - name: "Profile: Create a copy of /usr/bin/gnome-terminal"
     copy:
       src: /usr/bin/gnome-terminal
       dest: /usr/bin/gnome-terminal-bak
     become: true
     when: not gnometerminal.stat.islnk and tilix.stat.exists
-  - name: Remove /usr/bin/gnome-terminal
+  - name: "Profile: Remove /usr/bin/gnome-terminal"
     file:
       path: /usr/bin/gnome-terminal
       state: absent
     become: true
     when: not gnometerminal.stat.islnk and tilix.stat.exists
-  - name: Create a symbolic link
+  - name: "Profile: Create a symbolic link"
     file:
       src:  /usr/bin/tilix
       dest: /usr/bin/gnome-terminal

@@ -41,6 +41,7 @@ all:
       - xsel #cli clipboard utility
       - htop
       - fzf
+      - cloud-utils
     go_version: 1.14.4
     folders:
     - path: ~/git/public/

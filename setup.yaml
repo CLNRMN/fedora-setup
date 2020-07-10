@@ -6,3 +6,5 @@
       tags: golang
     - import_tasks: tasks/profile.yaml
       tags: profile
+    - import_tasks: tasks/libvirt.yaml
+      tags: libvirt

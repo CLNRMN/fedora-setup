@@ -33,6 +33,7 @@ all:
       - vagrant
       - virt-manager
       - libvirt-client
+      - virt-install
       - google-chrome-stable
       - jq
       - pwgen

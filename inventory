@@ -43,6 +43,7 @@ all:
       - htop
       - fzf
       - cloud-utils
+      - podman-compose
     go_version: 1.14.4
     folders:
     - path: ~/git/public/
